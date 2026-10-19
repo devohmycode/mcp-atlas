@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.1 — 2026-10-19
 
 - **Lighter npm package.** It ships only the installable servers (44,614, about 3 MB instead of 14 MB). The full catalog is downloaded on first use, as before.
 - **`r` in the tree downloads the full catalog** and shows the tree again with it. With the light catalog, a line above the tree says so.
