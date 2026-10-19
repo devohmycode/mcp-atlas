@@ -6,8 +6,8 @@ import { decodeCatalog, defaultCatalogPath } from './catalog.js';
 import { USER_AGENT } from './http.js';
 import type { Catalog } from './types.js';
 
-/** Placeholder until a snapshot is published. Callers and tests pass `url`. */
-export const REMOTE_CATALOG_URL = 'https://github.com/mcp-atlas/mcp-atlas/raw/main/data/catalog.json.gz';
+/** The snapshot the crawl workflow commits every other day. Tests pass `url`. */
+export const REMOTE_CATALOG_URL = 'https://github.com/devohmycode/mcp-atlas/raw/main/data/catalog.json.gz';
 /** How long a check is trusted before asking again. */
 export const MAX_AGE_MS = 12 * 60 * 60 * 1000;
 const TIMEOUT_MS = 30_000;

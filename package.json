@@ -47,5 +47,13 @@
     "cursor",
     "cli"
   ],
-  "author": "OhMyCode"
+  "author": "OhMyCode",
+  "homepage": "https://github.com/devohmycode/mcp-atlas#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devohmycode/mcp-atlas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/devohmycode/mcp-atlas/issues"
+  }
 }
