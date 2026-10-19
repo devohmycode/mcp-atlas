@@ -1,3 +1,12 @@
+```text
+███╗   ███╗ ██████╗██████╗     █████╗ ████████╗██╗      █████╗ ███████╗
+████╗ ████║██╔════╝██╔══██╗   ██╔══██╗╚══██╔══╝██║     ██╔══██╗██╔════╝
+██╔████╔██║██║     ██████╔╝   ███████║   ██║   ██║     ███████║███████╗
+██║╚██╔╝██║██║     ██╔═══╝    ██╔══██║   ██║   ██║     ██╔══██║╚════██║
+██║ ╚═╝ ██║╚██████╗██║        ██║  ██║   ██║   ███████╗██║  ██║███████║
+╚═╝     ╚═╝ ╚═════╝╚═╝        ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝
+```
+
 # mcp-atlas
 
 Browse public **MCP servers** by theme in a collapsible terminal tree or a local web page. Tick several and install them into your MCP clients' config in one go. Installed servers start ticked: untick one to uninstall it.
@@ -7,6 +16,8 @@ Browse public **MCP servers** by theme in a collapsible terminal tree or a local
 - **Keep up to date**: installed servers are detected and ticked; untick to uninstall, press `u` to update an outdated pin.
 - **Share**: `export` and `import` a selection, or commit an [`mcp-atlas.json`](#a-projects-servers-mcp-atlasjson) so that `mcp-atlas sync` gives every teammate the same servers.
 - **Everywhere**: six clients, a terminal tree and a web page, nine languages (en, fr, es, pt, de, it, zh, ja, ko), shell completion, and it works offline.
+
+![Terminal session: ticking servers in the tree, searching, choosing scope and clients, then the review where the audit leaves out a risky server](docs/demo.gif)
 
 ## Installation
 
