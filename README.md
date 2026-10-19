@@ -1,11 +1,4 @@
-```text
-███╗   ███╗ ██████╗██████╗     █████╗ ████████╗██╗      █████╗ ███████╗
-████╗ ████║██╔════╝██╔══██╗   ██╔══██╗╚══██╔══╝██║     ██╔══██╗██╔════╝
-██╔████╔██║██║     ██████╔╝   ███████║   ██║   ██║     ███████║███████╗
-██║╚██╔╝██║██║     ██╔═══╝    ██╔══██║   ██║   ██║     ██╔══██║╚════██║
-██║ ╚═╝ ██║╚██████╗██║        ██║  ██║   ██║   ███████╗██║  ██║███████║
-╚═╝     ╚═╝ ╚═════╝╚═╝        ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝
-```
+<p align="center"><img src="docs/logo.png" alt="MCP ATLAS" width="760"></p>
 
 # mcp-atlas
 
@@ -137,6 +130,13 @@ JSON, key `mcpServers`: Claude Code, Claude Desktop (global only), and Cursor.
 TOML, table `[mcp_servers.<name>]`: Codex CLI, Codex desktop, and Grok Build. Codex CLI and Codex desktop share the same files.
 
 `mcp-atlas doctor` reads them all and names a file that does not parse, an entry without a command, and a command that is not on the PATH.
+
+## Related projects
+
+The same tree, flags and review for the other kinds of agent extensions:
+
+- [skills-atlas](https://github.com/devohmycode/skills-atlas): Agent Skills (`SKILL.md`), installed through `npx skills add`.
+- [plugins-atlas](https://github.com/devohmycode/plugins-atlas): agent plugins from marketplaces (skills, commands, subagents, hooks, MCP servers).
 
 ## License
 
