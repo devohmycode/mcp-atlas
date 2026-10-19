@@ -9,6 +9,7 @@ export const ja: Messages = {
   keyNames: { enter: '↵', space: '␣', esc: 'Esc' },
 
   keys: {
+    refresh: 'カタログ',
     installable: 'インストール可',
     move: '移動',
     toggle: '選択',
@@ -111,6 +112,9 @@ export const ja: Messages = {
   },
 
   cli: {
+    updatingCatalog: 'カタログをダウンロード中…',
+    refreshFailed: (msg: string) => `カタログをダウンロードできませんでした（${msg}）。ローカルのものを使います。`,
+    liteCatalog: (n: string) => `軽量カタログ：インストール可能なサーバー ${n} 件。r で完全版をダウンロードします。`,
     installable: 'インストールできるパッケージまたはリモート URL があるサーバーのみ',
     description: '公開されている MCP サーバーをテーマ別に閲覧し、クライアントにインストールします。',
     lang: '表示言語（次回以降も保持）',

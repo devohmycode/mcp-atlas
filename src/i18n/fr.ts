@@ -10,6 +10,7 @@ export const fr: Messages = {
   keyNames: { enter: '↵', space: '␣', esc: 'échap' },
 
   keys: {
+    refresh: 'catalogue',
     installable: 'installables',
     move: 'déplacer',
     toggle: 'cocher',
@@ -112,6 +113,9 @@ export const fr: Messages = {
   },
 
   cli: {
+    updatingCatalog: 'Téléchargement du catalogue…',
+    refreshFailed: (msg: string) => `Impossible de télécharger le catalogue (${msg}) ; le catalogue local reste.`,
+    liteCatalog: (n: string) => `Catalogue léger : ${n} serveurs installables. r télécharge le catalogue complet.`,
     installable: 'seulement les serveurs avec un paquet ou une URL distante à installer',
     description: 'Parcourez les serveurs MCP publics par thème et installez-les dans vos clients.',
     lang: 'langue de l’interface (mémorisée)',

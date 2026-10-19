@@ -86,6 +86,20 @@ export function defaultCatalogPath(): string {
   return join(process.cwd(), 'data', 'catalog.json.gz');
 }
 
+/** The light snapshot shipped in the npm package: only the fiches with something to install. */
+export const LITE_CATALOG = 'catalog.lite.json.gz';
+
+/**
+ * The snapshot bundled with the code: the full one in a checkout, the light one in the npm package.
+ * The full catalog is downloaded on top of it (see `refresh.ts`).
+ */
+export function bundledCatalogPath(): string {
+  const full = defaultCatalogPath();
+  if (existsSync(full)) return full;
+  const lite = join(dirname(full), LITE_CATALOG);
+  return existsSync(lite) ? lite : full;
+}
+
 /** Checks a decoded snapshot. A missing or mistyped field is named on the error. */
 export function parseCatalog(value: unknown): Catalog {
   const parsed = catalogSchema.safeParse(value);

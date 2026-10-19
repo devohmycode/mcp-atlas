@@ -2,3 +2,4 @@ node_modules/
 dist/
 *.log
 .env
+data/catalog.lite.json.gz

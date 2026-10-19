@@ -10,6 +10,7 @@ export const de: Messages = {
   keyNames: { enter: '↵', space: '␣', esc: 'Esc' },
 
   keys: {
+    refresh: 'Katalog',
     installable: 'installierbar',
     move: 'bewegen',
     toggle: 'wählen',
@@ -112,6 +113,9 @@ export const de: Messages = {
   },
 
   cli: {
+    updatingCatalog: 'Katalog wird heruntergeladen…',
+    refreshFailed: (msg: string) => `Katalog konnte nicht heruntergeladen werden (${msg}); der lokale bleibt.`,
+    liteCatalog: (n: string) => `Leichter Katalog: ${n} installierbare Server. Drücke r für den vollständigen.`,
     installable: 'nur Server mit einem Paket oder einer Remote-URL zum Installieren',
     description: 'Öffentliche MCP-Server nach Thema durchsuchen und in deine Clients installieren.',
     lang: 'Sprache der Oberfläche (wird gespeichert)',

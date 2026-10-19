@@ -27,7 +27,7 @@ import { readReadme, ReadmeError } from './readme.js';
 import { recommend } from './recommended.js';
 import { loadLatestCatalog, type LatestOptions } from './refresh.js';
 import { commandText } from './review.js';
-import { searchServers, SORT_ORDERS, type SortOrder } from './search.js';
+import { hasCommand, searchServers, SORT_ORDERS, type SortOrder } from './search.js';
 import { CLIENT_IDS, SCOPES, type Catalog, type ClientId, type Scope } from './types.js';
 import type { WizardResult } from './ui/App.js';
 import { logo } from './ui/logo.js';
@@ -115,10 +115,19 @@ export function createProgram(deps: CliDeps = {}): Command {
   const stderr = deps.stderr ?? ((text: string) => process.stderr.write(text));
   const out = (line = '') => stdout(`${line}\n`);
   const err = (line: string) => stderr(`${line}\n`);
-  const load = deps.loadCatalog ?? ((flags: CatalogFlags) => openCatalog(flags, { fetch: deps.fetch }));
   const interactive = () => deps.interactive ?? (process.stdin.isTTY === true && process.stdout.isTTY === true);
   const m = t();
   const c = m.cli;
+  const load =
+    deps.loadCatalog ??
+    ((flags: CatalogFlags) =>
+      openCatalog(flags, {
+        fetch: deps.fetch,
+        // The full catalog is about 14 MB: say why the terminal waits. stderr keeps piped stdout clean.
+        onDownload: () => process.stderr.isTTY && err(c.updatingCatalog),
+        // A failed automatic check stays silent; a requested one says it failed.
+        onError: (error) => flags.refresh && err(c.refreshFailed(error instanceof Error ? error.message : String(error))),
+      }));
   /** Colors only on a real terminal, so that piped output stays plain. */
   const colored = !deps.stdout && process.stdout.isTTY === true && !('NO_COLOR' in process.env);
   const paint = (style: Parameters<typeof styleText>[0], text: string) => (colored ? styleText(style, text) : text);
@@ -356,13 +365,17 @@ export function createProgram(deps: CliDeps = {}): Command {
     .action(async function (this: Command) {
       const opts = this.opts() as FilterOpts & InstallOpts;
       if (!interactive()) this.error(m.errors.needsTty);
-      const catalog = await catalogFor(this);
-      const servers = searchServers(catalog.servers, { query: opts.search, themes: themesOf(this, catalog, opts.theme), official: opts.official, sort: opts.sort });
+      let catalog = await catalogFor(this);
+      const filtered = (from: Catalog) =>
+        searchServers(from.servers, { query: opts.search, themes: themesOf(this, from, opts.theme), official: opts.official, sort: opts.sort });
+      let servers = filtered(catalog);
       if (!servers.length) this.error(m.errors.noMatch);
       const preset = presetOf(this, opts);
       const ctx = machine();
       const flags = flagsFrom(this);
       const newer = (deps.newerVersion ?? (() => newerVersion(pkg.version, { offline: flags.offline })))();
+      // The npm package ships only the installable fiches: say how to get the others.
+      const liteNotice = () => (catalog.servers.every(hasCommand) ? paint('dim', c.liteCatalog(formatNumber(catalog.servers.length))) : '');
       const versionNotice = newer ? paint('dim', c.newVersion(newer, pkg.version)) : '';
       const treeMemory = {};
       const runs = await browseLoop(
@@ -383,14 +396,20 @@ export function createProgram(deps: CliDeps = {}): Command {
               search: opts.search,
               official: opts.official,
               installable: opts.installable,
-              notice: notice || versionNotice,
+              notice: notice || versionNotice || liteNotice(),
               treeMemory,
               audit: auditEnabled(machine().config ?? {}, opts.audit),
               loadPreview: (server) => readReadme(catalog, server.id, { fetch: deps.fetch }),
             },
             opts,
           ),
-        (result) => apply(catalog, result, machine(), opts.dryRun === true),
+        async (result) => {
+          if (!result.refresh) return apply(catalog, result, machine(), opts.dryRun === true);
+          out(c.updatingCatalog);
+          catalog = (await openRecommended({ ...flags, offline: false, refresh: true })).catalog;
+          servers = filtered(catalog);
+          return paint('dim', c.catalogOf(catalog.generatedAt.slice(0, 10), formatNumber(catalog.servers.length)));
+        },
         opts,
       );
       if (!runs) out(paint('dim', m.run.noChange));

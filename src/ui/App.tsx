@@ -26,6 +26,8 @@ export interface WizardResult {
   /** Installed servers to rewrite at the catalog version. */
   update: string[];
   options: InstallChoice;
+  /** The user asked for the full catalog: download it, then show the tree again. */
+  refresh?: boolean;
 }
 
 export interface InstalledState {
@@ -189,6 +191,7 @@ export function App(props: AppProps) {
             next('tree', toInstall.length);
           }}
           onCancel={() => finish(null)}
+          onRefresh={() => finish({ ids: [], remove: [], update: [], options: defaults, refresh: true })}
         />
       </Box>,
     );

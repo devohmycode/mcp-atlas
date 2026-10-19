@@ -68,6 +68,7 @@ mcp-atlas completion bash                  # shell completion script (bash, zsh,
 | `s` | sort: official first, or by name |
 | `o` | official servers only |
 | `i` | only servers with something to install (a package or a remote); installed ones stay |
+| `r` | download the full catalog now, then come back to the tree |
 | `p` | read the README and the risks |
 | `g` | open the repository |
 | `u` / `U` | mark an outdated server, or all of them, for update |
@@ -110,7 +111,7 @@ Each pack is a theme in the tree. `mcp-atlas packs` lists them and `install --pa
 
 ## Catalog
 
-The snapshot is built from the official registry (`https://registry.modelcontextprotocol.io/v0.1/servers`), then Glama, Smithery and PulseMCP. `npm run crawl` rebuilds it (about an hour). Nothing in the catalog is executed: not to list tools, and not to read a README. The preview is the declared GitHub README.
+The snapshot is built from the official registry (`https://registry.modelcontextprotocol.io/v0.1/servers`), then Glama, Smithery and PulseMCP. `npm run crawl` rebuilds it (about an hour). The npm package ships a light snapshot, only the servers with something to install (about 3 MB). The full one (about 14 MB) is downloaded on first use, then checked every 12 hours; `r` in the tree or `--refresh` downloads it now. Nothing in the catalog is executed: not to list tools, and not to read a README. The preview is the declared GitHub README.
 
 Glama needs `GLAMA_API_KEY`, PulseMCP `PULSEMCP_API_KEY` and `PULSEMCP_TENANT_ID`; without them the source is skipped. Locally, copy `.env.example` to `.env` and fill it in: `.env` is git-ignored, and a variable already set in the shell wins over it. On GitHub, `.github/workflows/crawl.yml` crawls every other day and commits the snapshot; add the same names as repository secrets (Settings > Secrets and variables > Actions).
 

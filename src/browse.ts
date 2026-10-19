@@ -15,6 +15,6 @@ export async function browseLoop(
     const result = await wizard(notice);
     if (!result) return runs;
     notice = await apply(result);
-    if (opts.dryRun) return runs + 1;
+    if (opts.dryRun && !result.refresh) return runs + 1;
   }
 }

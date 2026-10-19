@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
-import { decodeCatalog, defaultCatalogPath } from './catalog.js';
+import { bundledCatalogPath, decodeCatalog } from './catalog.js';
 import { USER_AGENT } from './http.js';
 import type { Catalog } from './types.js';
 
@@ -33,6 +33,10 @@ export interface LatestOptions {
   url?: string;
   now?: number;
   fetch?: typeof fetch;
+  /** Called before the download starts, to tell the user why they wait. */
+  onDownload?: () => void;
+  /** Called when the download fails; the cached or bundled snapshot is used anyway. */
+  onError?: (err: unknown) => void;
 }
 
 /**
@@ -53,6 +57,7 @@ export async function loadLatestCatalog(opts: LatestOptions = {}): Promise<Catal
   const stale = opts.refresh === true || meta === undefined || now - meta.checkedAt >= MAX_AGE_MS;
 
   if (opts.offline !== true && stale) {
+    opts.onDownload?.();
     try {
       const headers: Record<string, string> = { 'user-agent': USER_AGENT, accept: 'application/gzip' };
       if (cached && meta?.etag) headers['if-none-match'] = meta.etag;
@@ -69,12 +74,13 @@ export async function loadLatestCatalog(opts: LatestOptions = {}): Promise<Catal
       } else {
         throw new Error(`HTTP ${res.status}`);
       }
-    } catch {
+    } catch (err) {
+      opts.onError?.(err);
       await writeMeta(dir, metaFile, { etag: meta?.etag, checkedAt: now });
     }
   }
 
-  const bundled = await tryDecode(opts.bundledPath ?? defaultCatalogPath());
+  const bundled = await tryDecode(opts.bundledPath ?? bundledCatalogPath());
   const newest = [cached, bundled]
     .filter((item): item is Catalog => item !== undefined)
     .sort((a, b) => b.generatedAt.localeCompare(a.generatedAt))[0];

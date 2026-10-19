@@ -9,6 +9,7 @@ export const ko: Messages = {
   keyNames: { enter: '↵', space: '␣', esc: 'Esc' },
 
   keys: {
+    refresh: '카탈로그',
     installable: '설치 가능',
     move: '이동',
     toggle: '선택',
@@ -111,6 +112,9 @@ export const ko: Messages = {
   },
 
   cli: {
+    updatingCatalog: '카탈로그 다운로드 중…',
+    refreshFailed: (msg: string) => `카탈로그를 다운로드할 수 없습니다(${msg}). 로컬 카탈로그를 유지합니다.`,
+    liteCatalog: (n: string) => `경량 카탈로그: 설치 가능한 서버 ${n}개. r을 누르면 전체 카탈로그를 받습니다.`,
     installable: '설치할 패키지나 원격 URL이 있는 서버만',
     description: '공개 MCP 서버를 테마별로 둘러보고 클라이언트에 설치합니다.',
     lang: '인터페이스 언어 (다음 실행에도 유지됨)',

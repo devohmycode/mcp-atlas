@@ -8,18 +8,21 @@
   },
   "files": [
     "dist",
-    "data"
+    "data/catalog.lite.json.gz",
+    "data/packs.json",
+    "data/recommended.json"
   ],
   "engines": {
     "node": ">=20"
   },
   "scripts": {
     "build": "tsup",
-    "prepublishOnly": "npm run typecheck && npm test && npm run build",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build && npm run lite",
     "dev": "tsx src/launch.ts",
     "crawl": "tsx src/crawl.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lite": "tsx src/lite.ts"
   },
   "license": "MIT",
   "dependencies": {

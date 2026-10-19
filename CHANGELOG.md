@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- **Lighter npm package.** It ships only the installable servers (44,614, about 3 MB instead of 14 MB). The full catalog is downloaded on first use, as before.
+- **`r` in the tree downloads the full catalog** and shows the tree again with it. With the light catalog, a line above the tree says so.
+- The terminal says when it is downloading the catalog, and `--refresh` reports a failed download.
+
 ## 0.1.0 — 2026-10-19
 
 First release. The CLI works like skills-atlas, for MCP servers.

@@ -293,6 +293,31 @@ it('marks detected clients and completes from the offline snapshot', async () =>
   expect((await runCli(['completion', 'cmd'], deps(dir))).code).not.toBe(0);
 });
 
+it('downloads the catalog again when the tree asks for it, and names a light catalog', async () => {
+  const { dir } = dirOf('mcp-atlas-cli-');
+  const flags: CatalogFlags[] = [];
+  const notices: (string | undefined)[] = [];
+  let calls = 0;
+  const result = await runCli(['browse'], {
+    ...deps(dir),
+    interactive: true,
+    loadCatalog: async (flag) => {
+      flags.push(flag);
+      // First a light catalog (all installable), then the full one with an empty fiche.
+      return flags.length === 1 ? catalog([filesystem()]) : catalog([filesystem(), server({ id: 'com.example/empty', name: 'com.example/empty' })]);
+    },
+    runWizard: async (props) => {
+      notices.push(props.notice);
+      calls += 1;
+      return calls === 1 ? { ids: [], remove: [], update: [], options: { agents: [], scope: 'project' }, refresh: true } : null;
+    },
+  });
+  expect(result.code).toBe(0);
+  expect(flags.map((flag) => flag.refresh)).toEqual([false, true]);
+  expect(notices[0]).toContain('Light catalog: 1 installable');
+  expect(notices[1]).toContain('2 servers');
+});
+
 it('wires browse, ui, and mcp without starting them', async () => {
   const { dir } = dirOf('mcp-atlas-cli-');
   expect((await runCli(['browse'], deps(dir))).stderr).toContain('interactive terminal');

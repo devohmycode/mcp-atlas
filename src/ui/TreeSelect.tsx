@@ -46,6 +46,8 @@ export interface TreeSelectProps {
   updates?: Set<string>;
   onSubmit: (ids: string[], update?: string[]) => void;
   onCancel: () => void;
+  /** `r`: download the full catalog now. Absent, the key does nothing. */
+  onRefresh?: () => void;
   memory?: TreeMemory;
   /** The README shown by `p`. */
   loadPreview?: (server: Server) => Promise<string>;
@@ -116,6 +118,7 @@ export function TreeSelect({
   initialInstallable = false,
   onSubmit,
   onCancel,
+  onRefresh,
   memory,
   updates = NO_UPDATES,
   loadPreview,
@@ -381,6 +384,7 @@ export function TreeSelect({
     else if (input === 's') cycleSort();
     else if (input === 'o') toggleOfficial();
     else if (input === 'i') toggleInstallable();
+    else if (input === 'r' && onRefresh) onRefresh();
     else if (input === 'a') toggleAll();
     else if (input === 'g') openRepository();
     else if (input === 'p') openPreview();
@@ -405,6 +409,7 @@ export function TreeSelect({
         ['s', m.keys.sort, cycleSort],
         ['o', m.keys.official, toggleOfficial],
         ['i', m.keys.installable, toggleInstallable],
+        ...(onRefresh ? [['r', m.keys.refresh, onRefresh] as Hint] : []),
         ...(row?.kind === 'server' && loadPreview ? [['p', m.keys.preview, openPreview] as Hint] : []),
         ...(repoOf(row) ? [['g', 'GitHub', openRepository] as Hint] : []),
         ...(updates.size ? [['u', m.keys.update] as Hint, ['U', m.keys.updateAll, () => toggleUpdate([...updates])] as Hint] : []),

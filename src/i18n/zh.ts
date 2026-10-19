@@ -9,6 +9,7 @@ export const zh: Messages = {
   keyNames: { enter: '↵', space: '␣', esc: 'Esc' },
 
   keys: {
+    refresh: '目录',
     installable: '可安装',
     move: '移动',
     toggle: '勾选',
@@ -111,6 +112,9 @@ export const zh: Messages = {
   },
 
   cli: {
+    updatingCatalog: '正在下载目录…',
+    refreshFailed: (msg: string) => `无法下载目录（${msg}）；继续使用本地目录。`,
+    liteCatalog: (n: string) => `精简目录：${n} 个可安装的服务器。按 r 下载完整目录。`,
     installable: '仅显示有可安装的包或远程地址的服务器',
     description: '按主题浏览公开的 MCP 服务器，并安装到你的客户端。',
     lang: '界面语言（会被记住）',

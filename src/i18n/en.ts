@@ -9,6 +9,7 @@ export const en = {
   keyNames: { enter: '↵', space: '␣', esc: 'esc' },
 
   keys: {
+    refresh: 'catalog',
     installable: 'installable',
     move: 'move',
     toggle: 'toggle',
@@ -111,6 +112,9 @@ export const en = {
   },
 
   cli: {
+    updatingCatalog: 'Downloading the catalog…',
+    refreshFailed: (msg: string) => `Could not download the catalog (${msg}); the local one stays.`,
+    liteCatalog: (n: string) => `Light catalog: ${n} installable servers. Press r to download the full one.`,
     installable: 'only servers with a package or a remote to install',
     description: 'Browse public MCP servers by theme and install them into your clients.',
     lang: 'interface language (remembered)',
