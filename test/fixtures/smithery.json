@@ -1,0 +1,12 @@
+{
+  "servers": [
+    {
+      "qualifiedName": "io.github.example/filesystem",
+      "displayName": "Filesystem",
+      "description": "Read and write files",
+      "homepage": "https://github.com/example/filesystem",
+      "deploymentUrl": "https://smithery.example/mcp"
+    }
+  ],
+  "pagination": { "currentPage": 1, "pageSize": 100, "totalPages": 1, "totalCount": 1 }
+}

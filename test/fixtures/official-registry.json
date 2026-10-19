@@ -1,0 +1,43 @@
+{
+  "servers": [
+    {
+      "server": {
+        "name": "io.github.example/filesystem",
+        "title": "Filesystem",
+        "description": "Read and write files",
+        "version": "1.2.3",
+        "repository": { "url": "https://github.com/example/filesystem", "source": "github" },
+        "packages": [
+          {
+            "registryType": "npm",
+            "identifier": "@example/filesystem",
+            "version": "1.2.3",
+            "transport": { "type": "stdio" }
+          }
+        ],
+        "remotes": [{ "type": "streamable-http", "url": "https://example.com/mcp" }]
+      },
+      "_meta": {
+        "io.modelcontextprotocol.registry/official": { "status": "active", "isLatest": true }
+      }
+    },
+    {
+      "server": {
+        "name": "-y",
+        "description": "gone"
+      },
+      "_meta": {
+        "io.modelcontextprotocol.registry/official": { "status": "deleted" }
+      }
+    },
+    {
+      "server": {
+        "name": "com.example/search",
+        "description": "Search",
+        "version": "0.1.0",
+        "remotes": [{ "type": "sse", "url": "https://example.com/sse" }]
+      }
+    }
+  ],
+  "metadata": { "count": 3, "nextCursor": "abc/def+1" }
+}

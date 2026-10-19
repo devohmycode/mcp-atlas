@@ -1,0 +1,6 @@
+[
+  { "name": "filesystem", "description": "Read and write local files", "themes": ["files"] },
+  { "name": "github", "description": "Tools for GitHub repositories", "themes": ["git"] },
+  { "name": "postgres", "description": "Query a Postgres database", "themes": ["databases"] },
+  { "name": "puppeteer", "description": "Drive a browser with Puppeteer", "themes": ["browsers"] }
+]

@@ -1,0 +1,19 @@
+{
+  "servers": [
+    {
+      "name": "io.github.example/filesystem",
+      "description": "Read and write files",
+      "repository": { "url": "https://github.com/example/filesystem" },
+      "packages": [
+        {
+          "registryType": "npm",
+          "identifier": "@example/filesystem",
+          "version": "9.9.9",
+          "transport": { "type": "stdio" }
+        }
+      ],
+      "remotes": [{ "type": "streamable-http", "url": "https://glama.example/mcp" }]
+    }
+  ],
+  "pageInfo": { "hasNextPage": false }
+}

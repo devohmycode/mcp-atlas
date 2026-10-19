@@ -1,0 +1,51 @@
+{
+  "name": "mcp-atlas",
+  "version": "0.0.0",
+  "description": "Browse public MCP servers by theme, multi-select and install them into your MCP clients.",
+  "type": "module",
+  "bin": {
+    "mcp-atlas": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "data"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build",
+    "dev": "tsx src/launch.ts",
+    "crawl": "tsx src/crawl.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "ink": "^6.8.0",
+    "react": "^19.3.1",
+    "smol-toml": "^1.9.1",
+    "string-width": "^8.3.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.3.0",
+    "ink-testing-library": "^4.0.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mcp-servers",
+    "claude-code",
+    "cursor",
+    "cli"
+  ],
+  "author": "OhMyCode"
+}

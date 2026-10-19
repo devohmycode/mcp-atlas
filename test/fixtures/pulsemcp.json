@@ -1,0 +1,17 @@
+{
+  "servers": [
+    {
+      "server": {
+        "name": "io.github.example/filesystem",
+        "description": "Read and write files",
+        "version": "1.2.3",
+        "repository": { "url": "https://github.com/example/filesystem", "source": "github" },
+        "packages": [
+          { "registryType": "npm", "identifier": "@example/filesystem", "version": "1.2.3", "transport": { "type": "stdio" } }
+        ]
+      },
+      "_meta": { "com.pulsemcp/server": { "visitorsEstimateLastFourWeeks": 12450 } }
+    }
+  ],
+  "metadata": { "count": 1 }
+}
